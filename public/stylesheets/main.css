@@ -311,22 +311,20 @@ h1 a:hover {
 .radd-count .raddit {
   display: block;
   width: 2.8em;
-  margin: 0.3em auto 0 auto;
+  margin: 0.1em auto 0 auto;
   padding: 3px 5px;
-  color: #87938b;
   font-size: 0.7em;
   text-decoration: none;
   text-align: center;
+  color: #d3ddd7;
 }
 
 .radd-count a.raddit {
-  background-color: #fff;
-  border: 1px solid #87938b;
+  color: #87938b;
 }
 
 .radd-count a.raddit:hover {
-  background: #87938b;
-  color: #fff;
+  color: #f09f1c;
 }
 
 #back-to-top {
