@@ -1,0 +1,37 @@
+<p>
+  <b>Title:</b>
+  <%=h @story.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @story.description %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%=h @story.link %>
+</p>
+
+<p>
+  <b>Media:</b>
+  <%=h @story.media %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @story.user.login %>
+</p>
+
+<%= link_to 'Edit', edit_story_path(@story) %> |
+<%= link_to 'Back', stories_path %>
+
+<hr />
+
+<h2>New Comment</h2>
+
+<%= render :partial => 'comments/form',
+           :locals => { :story => @story,
+                        :comment => @comment } %>
+
+<%= render @comments %>

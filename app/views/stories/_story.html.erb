@@ -1,0 +1,14 @@
+<li class="story ruled">
+  <h3><%= link_to h(story.title), story.link %></h3>
+  <p>
+    <em><%=h story.media.capitalize %> &mdash;</em>
+    <%= link_to h(story.description), story %>
+    <em>(Submitted by <%= link_to h(story.user.login), story.user %>)</em>
+  </p>
+  <footer>
+    <%= link_to pluralize(story.comments.length, "Comment"), story %>
+    <time datetime="<%= story.created_at.localtime %>">
+      Made popular <strong><%= time_ago_in_words(story.created_at) %> ago</strong>
+    </time>
+  </footer>
+</li>

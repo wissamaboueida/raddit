@@ -1,0 +1,24 @@
+<hr />
+
+<p>
+  <b>Content:</b>
+  <%=h comment.content %>
+</p>
+
+<p>
+  <b>Story:</b>
+  <%=h comment.story.title %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h comment.user.login %>
+</p>
+
+<%= link_to 'Edit', edit_story_comment_path(comment.story, comment) %>
+
+<h3>Reply</h3>
+
+<%= render :partial => 'comments/form',
+           :locals => { :story => comment.story,
+                        :comment => comment.replies.new } %>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Raddit: <%= controller.controller_name %></title>
+  <meta charset="utf-8" />
+  <%= stylesheet_link_tag 'reset', 'main' %>
+</head>
+<body>
+  
+  <div id="container">
+    
+    <header id="banner">
+      <h1><%= link_to "raddit", root_path %></h1>
+      <div id="about">
+        <p>A clone of Digg for Berkeley RAD Lab research.</p>
+        <%= render :partial => 'users/user_bar' %>
+      </div>
+      <nav>
+        <%= render :partial => 'layouts/nav' %>
+      </nav>
+    </header>
+  
+    <% if flash[:error] -%>
+      <section id="error">
+        <p><%= flash[:error] %></p>
+      </section>
+    <% end -%>
+  
+    <% if flash[:notice] -%>
+      <section id="notice">
+        <p><%= flash[:notice] %></p>
+      </section>
+    <% end -%>
+  
+    <section id="content">
+      <%= yield %>
+    
+      <%= link_to "Back to top", "#", :id => "back-to-top" %>
+    </section>
+    
+  </div>
+  
+</body>
+</html>

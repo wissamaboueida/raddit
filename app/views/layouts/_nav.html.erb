@@ -1,0 +1,12 @@
+<ul id="views">
+  <li><%= link_to_with_current_class "All", root_path %></li>
+  <li><%= link_to_with_current_class "News", news_stories_path %></li>
+  <li><%= link_to_with_current_class "Images", images_stories_path %></li>
+  <li><%= link_to_with_current_class "Videos", videos_stories_path %></li>
+</ul>
+
+<ul id="actions">
+  <% if logged_in? %>
+    <li><%= link_to "Submit New", new_story_path %></li>
+  <% end -%>
+</ul>
