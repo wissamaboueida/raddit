@@ -1,0 +1,10 @@
+<div class="radd-count">
+  <%= link_to "<strong>#{story.radds.count}</strong> radds", story, :class => "count" %>
+  <% if logged_in? -%>
+    <% if current_user.has_radd?(story) %>
+      <span class="raddit">radd</span>
+    <% else -%>
+      <%= link_to "raddit", radd_story_path(story), :method => :post, :class => "raddit" %>
+    <% end -%>
+  <% end -%>
+</div>

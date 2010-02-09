@@ -4,10 +4,9 @@ class Story < ActiveRecord::Base
   belongs_to :user
   has_many :comments, :conditions => ["reply_to_id = ?", 0],
                       :dependent => :destroy
+  has_many :radds,    :dependent => :destroy
   
   validates_presence_of   :title
-  
-  validates_presence_of   :description
   
   validates_presence_of   :link
   validates_uniqueness_of :link

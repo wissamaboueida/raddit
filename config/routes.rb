@@ -8,7 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
 
   map.resources :stories, :has_many => :comments,
-                          :collection => [:news, :images, :videos]
+                          :collection => [:news, :images, :videos],
+                          :member => { :radd => :post }
 
   # The priority is based upon order of creation: first created -> highest priority.
 

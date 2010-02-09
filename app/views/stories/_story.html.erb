@@ -1,4 +1,5 @@
 <li class="story ruled">
+  <%= render :partial => 'radds', :locals => { :story => story } %>
   <h3><%= link_to h(story.title), story.link %></h3>
   <p>
     <em><%=h story.media.capitalize %> &mdash;</em>

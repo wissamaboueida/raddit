@@ -9,13 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100208012214) do
+ActiveRecord::Schema.define(:version => 20100209084639) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
     t.integer  "user_id",                    :null => false
     t.integer  "story_id",                   :null => false
     t.integer  "reply_to_id", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "radds", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "story_id",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

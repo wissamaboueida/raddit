@@ -29,7 +29,7 @@ class StoriesController < ApplicationController
   # GET /images.xml
   def images
     @heading = "Popular Images"
-    @stories = Story.find_all_by_media("images")
+    @stories = Story.find_all_by_media("image")
 
     respond_to do |format|
       format.html { render :action => "index" }
@@ -41,11 +41,32 @@ class StoriesController < ApplicationController
   # GET /videos.xml
   def videos
     @heading = "Popular Videos"
-    @stories = Story.find_all_by_media("videos")
+    @stories = Story.find_all_by_media("video")
 
     respond_to do |format|
       format.html { render :action => "index" }
       format.xml  { render :xml => @stories }
+    end
+  end
+
+  # POST /stories/1/radd
+  # POST /stories/1/radd.xml
+  def radd
+    @story = Story.find(params[:id])
+    
+    @radd = Radd.new
+    @radd.story = @story
+    @radd.user = current_user
+
+    respond_to do |format|
+      if @radd.save
+        flash[:notice] = 'You have made this story a little more radd!'
+        format.html { redirect_to(@story) }
+        format.xml  { render :xml => @story, :status => :created, :location => @story }
+      else
+        format.html { render :action => "index" }
+        format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

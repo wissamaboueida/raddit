@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   
   has_many :stories,  :dependent => :nullify
   has_many :comments, :dependent => :destroy
+  has_many :radds,    :dependent => :destroy
   
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -37,5 +38,9 @@ class User < ActiveRecord::Base
   
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
+  end
+  
+  def has_radd?(story)
+    !!radds.find_by_story_id(story.id)
   end
 end
