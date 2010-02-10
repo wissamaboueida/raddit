@@ -1,0 +1,52 @@
+<h2 class="ruled">Editing Profile</h2>
+
+<% form_for(@user, :html => { :class => "inline" }) do |f| %>
+  <%= f.error_messages %>
+  
+  <p>
+    <%= label_tag :login, "Username" %>
+    <%= f.text_field :login, :class => "disabled title", :disabled => true %>
+  </p>
+  <p>
+    <%= label_tag :name, "Full Name" %>
+    <%= f.text_field :name, :class => "text" %>
+  </p>
+  <p>
+    <%= label_tag :email, "Email Address" %>
+    <%= f.text_field :email, :class => "text" %>
+  </p>
+  <p>
+    <%= label_tag :password %>
+    <%= f.password_field :password, :class => "text" %>
+  </p>
+  <p class="ruled">
+    <%= label_tag :password_confirmation, "Confirm Password" %>
+    <%= f.password_field :password_confirmation, :class => "text" %>
+  </p>
+  <p>
+    <%= label_tag :location %>
+    <%= f.text_field :location, :class => "text" %>
+  </p>
+  <p>
+    <%= label_tag :country %>
+    <%= f.select :country, COUNTRY_CODES, :include_blank => true %>
+  </p>
+  <p>
+    <%= label_tag :postal_code, "Postal Code" %>
+    <%= f.text_field :postal_code, :class => "text" %>
+  </p>
+  <p>
+    <%= label_tag :birthdate %>
+    <%= f.date_select :birthdate, :include_blank => true,
+          :start_year => Time.now.year - 100,
+          :order => [:month, :day, :year] %>
+  </p>
+  <p>
+    <%= label_tag :about_me, "About Me" %>
+    <%= f.text_area :about_me %>
+  </p>
+  <p class="ruled">
+    <%= submit_tag 'Save Changes' %>
+    or <%= link_to 'cancel', @user %>
+  </p>
+<% end %>

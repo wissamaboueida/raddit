@@ -11,5 +11,8 @@ class Comment < ActiveRecord::Base
   validates_presence_of   :user_id
   validates_presence_of   :story_id
   
+  def is_editable?
+    created_at > 5.minutes.ago
+  end
   
 end

@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
   before_filter :login_required, :except => [:index, :news, :images, :videos, :show]
+  before_filter :ownership_required, :only => [:edit, :update]
 
   # GET /stories
   # GET /stories.xml
@@ -145,4 +146,11 @@ class StoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+protected
+
+  def ownership_required
+    logged_in? && current_user.owns?(Story.find(params[:id]))
+  end
+
 end

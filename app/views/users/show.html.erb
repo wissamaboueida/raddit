@@ -1,0 +1,39 @@
+<hgroup class="ruled">
+  <% if @user.name.blank? -%>
+    <h2><%=h @user.login %></h2>
+  <% else -%>
+    <h2><%=h @user.name %></h2>
+    <h3>(<%=h @user.login %>)</h3>
+  <% end -%>
+  <p>Joined Raddit on <%= ordinalize_date(@user.created_at) %></p>
+</hgroup>
+
+<% if_authorized?(:edit, current_user) do -%>
+  <%= link_to "Edit Profile", edit_user_path(@user), :id => "edit-profile" %>
+<% end -%>
+
+<dl id="user-profile" class="ruled">
+  <dt>Email</dt>
+  <dd><%= mail_to @user.email %></dd>
+  <% unless @user.location.blank? %>
+    <dt>Location</dt>
+    <dd><%=h @user.location %></dd>
+  <% end -%>
+  <% unless @user.country.blank? %>
+  <dt>Country</dt>
+  <dd><%=h @user.country %></dd>
+  <% end -%>
+  <% unless @user.postal_code.blank? %>
+  <dt>Postal Code</dt>
+  <dd><%=h @user.postal_code %></dd>
+  <% end -%>
+  <% unless @user.birthdate.nil? %>
+  <dt>Birthdate</dt>
+  <dd><%= ordinalize_date(@user.birthdate) %></dd>
+  <% end -%>
+  <% unless @user.about_me.blank? %>
+  <dt>About Me</dt>
+  <dd><%=h @user.about_me %></dd>
+  <% end -%>
+</dl>
+

@@ -1,24 +1,37 @@
-<hr />
-
-<p>
-  <b>Content:</b>
-  <%=h comment.content %>
-</p>
-
-<p>
-  <b>Story:</b>
-  <%=h comment.story.title %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h comment.user.login %>
-</p>
-
-<%= link_to 'Edit', edit_story_comment_path(comment.story, comment) %>
-
-<h3>Reply</h3>
-
-<%= render :partial => 'comments/form',
-           :locals => { :story => comment.story,
-                        :comment => comment.replies.new } %>
+<li id="<%= "comment-#{comment.id}" %>" class="comment light-ruled">
+  
+  <div class="details">
+    <%= link_to h(comment.user.login), comment.user %>
+    <time datetime="<%= comment.created_at.localtime %>">
+      <%= time_ago_in_words(comment.created_at) %> ago
+    </time>
+  </div>
+  
+  <p><%=h comment.content %></p>
+  
+  <footer>
+    <% if comment.replies.length > 0 -%>
+      <%= link_to pluralize(comment.replies.length, "Reply"),
+                  edit_story_comment_path(comment.story, comment),
+                  :class => 'replies' %>
+    <% else -%>
+      &nbsp;
+    <% end -%>
+    <% if logged_in? -%>
+      <%= link_to 'Reply', edit_story_comment_path(comment.story, comment), :class => 'reply' %>
+      <% if current_user.owns?(comment) && comment.is_editable? -%>
+        <%= link_to 'Edit', edit_story_comment_path(comment.story, comment), :class => 'edit' %>
+      <% end -%>
+    <% end -%>
+  </footer>
+  
+  <ol>
+    <%= render comment.replies %>
+  </ol>
+  
+  <%= render :partial => 'comments/form',
+             :locals => { :story => comment.story,
+                          :comment => comment.replies.new,
+                          :submit_text => 'Post Reply' } %>
+  
+</li>

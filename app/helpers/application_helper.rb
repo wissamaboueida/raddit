@@ -8,4 +8,8 @@ module ApplicationHelper
     end
   end
 
+  def ordinalize_date(date)
+    date.strftime("%B #{date.day.ordinalize}, %Y")
+  end
+
 end

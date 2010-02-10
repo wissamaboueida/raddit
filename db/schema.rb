@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100209084639) do
+ActiveRecord::Schema.define(:version => 20100209232714) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(:version => 20100209084639) do
     t.datetime "remember_token_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location",                  :limit => 40,  :default => ""
+    t.string   "country",                   :limit => 2,   :default => ""
+    t.string   "postal_code",                              :default => ""
+    t.date     "birthdate"
+    t.text     "about_me"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

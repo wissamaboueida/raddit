@@ -1,15 +1,25 @@
 ActionController::Routing::Routes.draw do |map|
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  map.resources :users
 
+  # Users
+  map.resources :users, :except => [:index, :destroy]
+  map.with_options :controller => 'users' do |user|
+    user.register '/register', :action => 'create'
+    user.signup   '/signup',   :action => 'new'
+  end
+
+  # Sessions
+  map.with_options :controller => 'sessions' do |session|
+    session.logout '/logout', :action => 'destroy'
+    session.login  '/login',  :action => 'new'
+  end
   map.resource :session
 
-  map.resources :stories, :has_many => :comments,
-                          :collection => [:news, :images, :videos],
-                          :member => { :radd => :post }
+  # Stories
+  map.resources :stories, :collection => [:news, :images, :videos],
+                          :member => { :radd => :post } do |stories|
+    stories.resources :comments, :except => [:index, :show]
+  end
+  map.root :controller => "stories"
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -42,14 +52,11 @@ ActionController::Routing::Routes.draw do |map|
   #     admin.resources :products
   #   end
 
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "stories"
-
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  #  map.connect ':controller/:action/:id'
+  #  map.connect ':controller/:action/:id.:format'
 end

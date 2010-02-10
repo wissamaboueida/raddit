@@ -1,12 +1,13 @@
-<% form_for([story, comment]) do |f| %>
+<% submit_text ||= 'Post Comment' -%>
+
+<% form_for([story, comment], :html => { :id => nil }) do |f| %>
   <%= f.error_messages %>
   
-  <p>
-    <%= f.label :content %><br />
+  <p class="content">
     <%= f.text_area :content %>
   </p>
-  <p>
+  <p class="ruled">
     <%= f.hidden_field :reply_to_id %>
-    <%= f.submit 'Create' %>
+    <%= f.submit submit_text %>
   </p>
 <% end %>

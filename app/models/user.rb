@@ -22,7 +22,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
   
-  attr_accessible :login, :email, :name, :password, :password_confirmation
+  validates_inclusion_of    :country,  :in => COUNTRY_CODES.map(&:last), :allow_blank => true
+  
+  attr_accessible :login, :email, :name, :password, :password_confirmation,
+                  :location, :country, :postal_code, :birthdate, :about_me
   
   # Authenticates a user by their login name and unencrypted password.
   # Returns the user or nil.
@@ -43,4 +46,9 @@ class User < ActiveRecord::Base
   def has_radd?(story)
     !!radds.find_by_story_id(story.id)
   end
+  
+  def owns?(ownable)
+    ownable.user == self
+  end
+  
 end

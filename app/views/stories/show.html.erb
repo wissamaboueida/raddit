@@ -1,37 +1,39 @@
-<p>
-  <b>Title:</b>
-  <%=h @story.title %>
-</p>
+<section class="story ruled">
+  
+  <% if logged_in? && current_user.owns?(@story) -%>
+    <%= link_to "Edit Link Details", edit_story_path(@story), :id => "edit-story" %>
+  <% end -%>
+  
+  <div class="radd-count">
+    <%= render :partial => 'radds', :locals => { :story => @story } %>
+  </div>
+  
+  <h2><%= link_to h(@story.title), @story.link %></h2>
+  <p class="story-content">
+    <em><%=h @story.media.capitalize %> &mdash;</em>
+    <%=h @story.description %>
+  </p>
+  
+  <footer>
+    Submitted by <strong><%= link_to h(@story.user.login), @story.user %></strong>
+    <time datetime="<%= @story.created_at.localtime %>">
+      <%= time_ago_in_words(@story.created_at) %> ago
+    </time>
+  </footer>
+  
+</section>
 
-<p>
-  <b>Description:</b>
-  <%=h @story.description %>
-</p>
+<section class="comments">
+  
+  <h3><%= pluralize(@story.comments.length, "Comment") %></h3>
+  <ol class="ruled">
+    <%= render @comments %>
+  </ol>
+  
+  <h3>Add a Comment</h3>
+  <%= render :partial => 'comments/form',
+             :locals => { :story => @story,
+                          :comment => @comment } %>
+  
+</section>
 
-<p>
-  <b>Link:</b>
-  <%=h @story.link %>
-</p>
-
-<p>
-  <b>Media:</b>
-  <%=h @story.media %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h @story.user.login %>
-</p>
-
-<%= link_to 'Edit', edit_story_path(@story) %> |
-<%= link_to 'Back', stories_path %>
-
-<hr />
-
-<h2>New Comment</h2>
-
-<%= render :partial => 'comments/form',
-           :locals => { :story => @story,
-                        :comment => @comment } %>
-
-<%= render @comments %>

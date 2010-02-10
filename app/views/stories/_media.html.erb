@@ -1,0 +1,4 @@
+<%= label :story, :media,
+      image_tag("#{media}.png", :class => 'radio', :alt => media.capitalize),
+      :value => media %>
+<%= radio_button :story, :media, media %>

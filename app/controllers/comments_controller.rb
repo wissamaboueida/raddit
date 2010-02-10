@@ -1,27 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :login_required
   before_filter :get_story
-
-  # GET /posts/1/comments
-  # GET /posts/1/comments.xml
-  def index
-    @comments = @story.comments
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @comments }
-    end
-  end
-
-  # GET /posts/1/comments/1
-  # GET /posts/1/comments/1.xml
-  def show
-    @comment = @story.comments.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @comment }
-    end
-  end
 
   # GET /posts/1/comments/new
   # GET /posts/1/comments/new.xml
@@ -36,7 +15,7 @@ class CommentsController < ApplicationController
 
   # GET /posts/1/comments/1/edit
   def edit
-    @comment = @story.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   # POST /posts/1/comments
@@ -61,7 +40,7 @@ class CommentsController < ApplicationController
   # PUT /posts/1/comments/1
   # PUT /posts/1/comments/1.xml
   def update
-    @comment = @story.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
@@ -78,7 +57,7 @@ class CommentsController < ApplicationController
   # DELETE /posts/1/comments/1
   # DELETE /posts/1/comments/1.xml
   def destroy
-    @comment = @story.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
     @comment.destroy
 
     respond_to do |format|

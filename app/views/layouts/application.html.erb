@@ -3,7 +3,7 @@
 <head>
   <title>Raddit: <%= controller.controller_name %></title>
   <meta charset="utf-8" />
-  <%= stylesheet_link_tag 'reset', 'main' %>
+  <%= stylesheet_link_tag 'reset', 'forms', 'main', :cache => true %>
 </head>
 <body>
   
@@ -40,5 +40,6 @@
     
   </div>
   
+  <%= javascript_include_tag 'jquery', 'application', :cache => true %>
 </body>
 </html>

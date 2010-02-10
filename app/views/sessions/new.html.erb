@@ -1,17 +1,14 @@
 <h2 class="ruled">Log In</h2>
 
-<% form_tag session_path do -%>
+<% form_tag(session_path, :class => "inline") do -%>
+
   <p>
-    <%= label :login, 'Username' %><br />
-    <%= text_field_tag :login, @login %>
+    <%= label_tag :login, "Username" %>
+    <%= text_field_tag :login, @login, :class => "text" %>
   </p>
   <p>
-    <%= label :password, "Password" %><br/>
-    <%= password_field_tag :password, nil %>
+    <%= label_tag :password, "Password" %>
+    <%= password_field_tag :password, nil, :class => "text" %>
   </p>
-  <p>
-    <%= label :remember_me, "Remember Me" %>
-    <%= check_box_tag :remember_me, '1', @remember_me %>
-  </p>
-  <p class="ruled"><%= submit_tag 'Log in' %></p>
+  <p class="ruled"><%= submit_tag 'Log In' %></p>
 <% end -%>

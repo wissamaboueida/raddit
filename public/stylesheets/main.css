@@ -1,19 +1,31 @@
 /* HTML5 tags */
-header, section, footer,
+header, section, footer, hgroup,
 aside, nav, article, figure {
   display: block;
 }
 
-html, body {
+html {
   height: 100%;
+  font-size: 100.01%;
 }
 
 body {
-  font-size: 87.5%;
-  font-family: Helvetica, Arial, sans-serif;
+  height: 100%;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   line-height: 1.429;
+  font-size: 75%;
   color: #444;
-  background: #87938b url(/images/bg_body.gif) repeat-x 0 -144px;
+  background: #87938b url(/images/sprites.png) repeat-x 0 -280px;
+}
+
+a {
+  color: #136382;
+  outline: none;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #142029;
 }
 
 #container {
@@ -27,7 +39,7 @@ body {
   width: 630px;
   height: 144px;
   padding: 0 15px;
-  background: url(/images/bg_body.gif) repeat-x 0 0;
+  background: url(/images/sprites.png) repeat-x 0 -136px;
 }
 
 h1 {
@@ -42,12 +54,11 @@ h1 a {
   width: 100%;
   height: 100%;
   text-indent: -10000px;
-  background: url(/images/raddit-logo.png) no-repeat;
-  outline: none;
+  background: url(/images/sprites.png) no-repeat 0 -16px;
 }
 
 h1 a:hover {
-  background-position: 0 -60px;
+  background-position: 0 -76px;
 }
 
 #about {
@@ -58,6 +69,7 @@ h1 a:hover {
   padding: 0.25em 0 0 20px;
   border-left: 1px solid #000;
   color: #87938b;
+  font-size: 1.1em;
   line-height: 1.65;
 }
 
@@ -67,7 +79,6 @@ h1 a:hover {
 }
 
 #user-bar {
-  font-size: 0.9em;
   line-height: inherit;
 }
 
@@ -126,6 +137,7 @@ h1 a:hover {
   padding: 0 1.1em;
   line-height: inherit;
   color: inherit;
+  font-size: 1.1em;
   font-weight: bold;
   text-decoration: none;
 }
@@ -153,7 +165,6 @@ h1 a:hover {
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   color: #fff;
-  font-size: 0.85em;
   font-weight: bold;
   text-decoration: none;
 }
@@ -170,6 +181,7 @@ h1 a:hover {
 
 #notice p, #error p {
   font-weight: bold;
+  font-size: 1.1em;
   color: #fff;
 }
 
@@ -187,7 +199,8 @@ h1 a:hover {
 }
 
 #content h2 {
-  font-size: 2.2em;
+  font-size: 2.4em;
+  line-height: 1.4;
 }
 
 .ruled {
@@ -198,8 +211,8 @@ h1 a:hover {
 
 .story {
   position: relative;
-  line-height: 1.2;
-  padding-left: 4.2em;
+  line-height: 1.3;
+  padding-left: 4.8em;
 }
 
 .story .radd-count {
@@ -209,22 +222,18 @@ h1 a:hover {
 
 .story h3 {
   line-height: inherit;
+  margin-bottom: 0.2em;
 }
 
 .story h3 a {
-  font-size: 1.7em;
+  font-size: 1.8em;
   text-decoration: none;
   line-height: inherit;
-  color: #136382;
-}
-
-.story h3 a:hover {
-  color: #142029;
 }
 
 .story p {
   line-height: inherit;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.9em;
 }
 
 .story p a {
@@ -253,18 +262,24 @@ h1 a:hover {
 }
 
 .story footer {
-  font-size: 0.8em;
+  font-size: 0.9em;
   line-height: inherit;
 }
 
-.story footer a {
+.story footer .comments {
+  display: inline-block;
   line-height: inherit;
   color: inherit;
   margin-right: 0.8em;
+  padding: 2px 0;
+  padding-left: 20px;
+  background: url(/images/sprites.png) no-repeat 0 0;
+  text-decoration: none;
 }
 
-.story footer a:hover {
+.story footer .comments:hover {
   color: #000;
+  text-decoration: underline;
 }
 
 .story footer time {
@@ -272,14 +287,99 @@ h1 a:hover {
   color: #87938b;
 }
 
-.story footer time strong {
+.comments {
+  line-height: 1.4;
+}
+
+.comments h3 {
+  font-size: 1.5em;
+  line-height: inherit;
+}
+
+/* HACK: Allow textarea to span 100% width with padding. */
+.comments .content { margin: 0 6px; }
+.comments .content textarea {
+  width: 100%;
+  margin-left: -6px;
+}
+
+.comment {
+  position: relative;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid #d6dad7;
+  line-height: 1.2;
+}
+
+.comment .details {
+  position: absolute;
+  left: 0;
+  font-size: 0.9em;
+  line-height: inherit;
+  width: 8em;
+}
+
+.comment .details a {
+  font-weight: bold;
+  color: inherit;
+}
+
+.comment .details a:hover {
+  text-decoration: underline;
+}
+
+.comment .details time {
+  display: block;
+  color: #87938b;
+}
+
+.comment p, .comment footer, .comment form {
+  margin-left: 8em;
+}
+
+.comment p {
+  margin-bottom: 0.6em;
+}
+
+.comment footer {
+  margin-bottom: 0.8em;
+}
+
+.comment footer * {
+  font-size: 0.9em;
+}
+
+.comment .edit, .comment .reply {
+  float: right;
+  margin-left: 1em;
+}
+
+/* Toggles. */
+.comment form { display: none; }
+.comment ol { display: none; }
+
+.comment form .ruled {
+  margin: 0;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.comment ol {
+  margin-left: 2em;
+}
+
+strong {
   font-weight: bold;
   color: #f09f1c;
 }
 
-.radd-count {
-  display: block;
-  float: left;
+strong a {
+  color: inherit;
+}
+
+strong a:hover {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .radd-count .count {
@@ -293,7 +393,7 @@ h1 a:hover {
   -webkit-border-bottom-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   color: #fff;
-  font-size: 0.8em;
+  font-size: 0.9em;
   text-decoration: none;
 }
 
@@ -306,6 +406,7 @@ h1 a:hover {
   text-align: center;
   font-size: 1.5em;
   line-height: 1.2;
+  color: inherit;
 }
 
 .radd-count .raddit {
@@ -313,7 +414,7 @@ h1 a:hover {
   width: 2.8em;
   margin: 0.1em auto 0 auto;
   padding: 3px 5px;
-  font-size: 0.7em;
+  font-size: 0.8em;
   text-decoration: none;
   text-align: center;
   color: #d3ddd7;
@@ -327,9 +428,63 @@ h1 a:hover {
   color: #f09f1c;
 }
 
+hgroup h2 {
+  display: inline-block;
+  margin-right: 0.2em;
+}
+
+hgroup h3 {
+  display: inline-block;
+  font-size: 1.5em;
+  color: #87938b;
+  vertical-align: 0.1em;
+}
+
+#edit-profile, #edit-story {
+  float: right;
+  display: inline-block;
+  padding: 4px 6px;
+  background-color: #fff;
+  border: 1px solid #87938b;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  color: #87938b;
+  text-decoration: none;
+}
+
+#edit-profile:hover, #edit-story:hover {
+  background: #87938b;
+  color: #fff;
+}
+
+#user-profile {
+  padding-bottom: 0.8em;
+}
+
+dl {
+  line-height: 2.5;
+}
+
+dl dt {
+  position: absolute;
+  font-weight: bold;
+  line-height: inherit;
+  
+}
+
+dl dd {
+  margin-left: 10em;
+  line-height: inherit;
+}
+
 #back-to-top {
   display: inline-block;
-  margin-right: 3px;
   padding: 5px 7px;
   background-color: #fff;
   border: 1px solid #87938b;
@@ -342,7 +497,7 @@ h1 a:hover {
   -webkit-border-top-left-radius: 5px;
   -webkit-border-top-right-radius: 5px;
   color: #87938b;
-  font-size: 0.9em;
+  font-size: 1.1em;
   text-decoration: none;
 }
 
