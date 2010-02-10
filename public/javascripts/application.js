@@ -12,7 +12,7 @@ $(window).load(function (event) {
       form.hide();
     } else {
       form.show();
-      $("ol", li).show();
+      $("> ol", li).show();
     }
     
     event.preventDefault();
@@ -20,7 +20,7 @@ $(window).load(function (event) {
   
   $(".replies").click(function (event) {
     var li = $(this).closest("li");
-    $("ol", li).toggle();
+    $("> ol", li).toggle();
     
     event.preventDefault();
   });
