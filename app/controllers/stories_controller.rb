@@ -71,6 +71,27 @@ class StoriesController < ApplicationController
     end
   end
 
+  # POST /stories/1/bury
+  # POST /stories/1/bury.xml
+  def bury
+    @story = Story.find(params[:id])
+    
+    @radd = Radd.new({ :vote => false })
+    @radd.story = @story
+    @radd.user = current_user
+
+    respond_to do |format|
+      if @radd.save
+        flash[:notice] = 'You have buried this story.'
+        format.html { redirect_to(@story) }
+        format.xml  { render :xml => @story, :status => :created, :location => @story }
+      else
+        format.html { render :action => "index" }
+        format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /stories/1
   # GET /stories/1.xml
   def show

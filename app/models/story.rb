@@ -4,7 +4,19 @@ class Story < ActiveRecord::Base
   belongs_to :user
   has_many :comments, :conditions => ["reply_to_id = ?", 0],
                       :dependent => :destroy
-  has_many :radds,    :dependent => :destroy
+  has_many :radds,    :dependent => :destroy do
+    def for
+      find_all_by_vote(true)
+    end
+    
+    def against
+      find_all_by_vote(false)
+    end
+    
+    def net_count
+      self.for.count - self.against.count
+    end
+  end
   
   validates_presence_of   :title
   

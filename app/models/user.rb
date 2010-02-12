@@ -7,7 +7,19 @@ class User < ActiveRecord::Base
   
   has_many :stories,  :dependent => :nullify
   has_many :comments, :dependent => :destroy
-  has_many :radds,    :dependent => :destroy
+  has_many :radds,    :dependent => :destroy do
+    def for
+      find_all_by_vote(true)
+    end
+    
+    def against
+      find_all_by_vote(false)
+    end
+    
+    def net_count
+      self.for.count - self.against.count
+    end
+  end
   
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -44,7 +56,15 @@ class User < ActiveRecord::Base
   end
   
   def has_radd?(story)
-    !!radds.find_by_story_id(story.id)
+    !!radds.find_by_story_id_and_vote(story.id, true)
+  end
+  
+  def has_buried?(story)
+    !!radds.find_by_story_id_and_vote(story.id, false)
+  end
+  
+  def has_radd_or_buried?(story)
+    has_radd?(story) || has_buried?(story)
   end
   
   def owns?(ownable)

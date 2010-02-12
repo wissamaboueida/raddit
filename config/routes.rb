@@ -16,7 +16,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # Stories
   map.resources :stories, :collection => [:news, :images, :videos],
-                          :member => { :radd => :post } do |stories|
+                          :member => { :radd => :post,
+                                       :bury => :post } do |stories|
     stories.resources :comments, :except => [:index, :show]
   end
   map.root :controller => "stories"

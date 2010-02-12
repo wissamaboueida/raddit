@@ -15,7 +15,7 @@ body {
   line-height: 1.429;
   font-size: 75%;
   color: #444;
-  background: #87938b url(/images/sprites.png) repeat-x 0 -280px;
+  background: #87938b url(/images/sprites.png) repeat-x 0 -306px;
 }
 
 a {
@@ -39,7 +39,7 @@ a:hover {
   width: 630px;
   height: 144px;
   padding: 0 15px;
-  background: url(/images/sprites.png) repeat-x 0 -136px;
+  background: url(/images/sprites.png) repeat-x 0 -162px;
 }
 
 h1 {
@@ -54,11 +54,11 @@ h1 a {
   width: 100%;
   height: 100%;
   text-indent: -10000px;
-  background: url(/images/sprites.png) no-repeat 0 -16px;
+  background: url(/images/sprites.png) no-repeat 0 -42px;
 }
 
 h1 a:hover {
-  background-position: 0 -76px;
+  background-position: 0 -102px;
 }
 
 #about {
@@ -266,18 +266,28 @@ h1 a:hover {
   line-height: inherit;
 }
 
-.story footer .comments {
+.story footer .comments,
+.story footer .bury {
   display: inline-block;
   line-height: inherit;
   color: inherit;
   margin-right: 0.8em;
   padding: 2px 0;
   padding-left: 20px;
-  background: url(/images/sprites.png) no-repeat 0 0;
+  background: url(/images/sprites.png) no-repeat;
   text-decoration: none;
 }
 
-.story footer .comments:hover {
+.story footer .comments {
+  background-position: 0 -26px;
+}
+
+.story footer .bury {
+  background-position: 0 0;
+}
+
+.story footer .comments:hover,
+.story footer .bury:hover {
   color: #000;
   text-decoration: underline;
 }
@@ -409,7 +419,7 @@ strong a:hover {
   color: inherit;
 }
 
-.radd-count .raddit {
+.radd-count .status {
   display: block;
   width: 2.8em;
   margin: 0.1em auto 0 auto;
@@ -420,11 +430,11 @@ strong a:hover {
   color: #d3ddd7;
 }
 
-.radd-count a.raddit {
+.radd-count a.status {
   color: #87938b;
 }
 
-.radd-count a.raddit:hover {
+.radd-count a.status:hover {
   color: #f09f1c;
 }
 
@@ -444,6 +454,7 @@ hgroup h3 {
   float: right;
   display: inline-block;
   padding: 4px 6px;
+  margin: 0 0 10px 10px;
   background-color: #fff;
   border: 1px solid #87938b;
   -moz-border-radius-bottomleft: 5px;

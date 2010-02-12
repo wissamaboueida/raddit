@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100209232714) do
+ActiveRecord::Schema.define(:version => 20100211234716) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -21,17 +21,18 @@ ActiveRecord::Schema.define(:version => 20100209232714) do
   end
 
   create_table "radds", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "story_id",   :null => false
+    t.integer  "user_id",                      :null => false
+    t.integer  "story_id",                     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "vote",       :default => true
   end
 
   create_table "stories", :force => true do |t|
-    t.string   "title",       :null => false
-    t.text     "description", :null => false
-    t.string   "link",        :null => false
-    t.string   "media",       :null => false
+    t.string   "title",                              :null => false
+    t.text     "description",                        :null => false
+    t.string   "link",        :default => "http://", :null => false
+    t.string   "media",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

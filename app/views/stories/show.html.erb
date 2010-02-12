@@ -15,6 +15,9 @@
   </p>
   
   <footer>
+    <% if logged_in? && !current_user.has_radd_or_buried?(@story) -%>
+      <%= link_to "Bury", bury_story_path(@story), :class => 'bury', :method => :post %>
+    <% end -%>
     Submitted by <strong><%= link_to h(@story.user.login), @story.user %></strong>
     <time datetime="<%= @story.created_at.localtime %>">
       <%= time_ago_in_words(@story.created_at) %> ago
