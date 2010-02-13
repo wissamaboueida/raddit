@@ -316,7 +316,7 @@ h1 a:hover {
 .comment {
   position: relative;
   margin-top: 5px;
-  padding-top: 5px;
+  padding-top: 10px;
   border-top: 1px solid #d6dad7;
   line-height: 1.2;
 }
@@ -341,6 +341,26 @@ h1 a:hover {
 .comment .details time {
   display: block;
   color: #87938b;
+}
+
+.comment .radd-count {
+  float: right;
+  margin-top: -5px;
+  font-size: 0.9em;
+}
+
+.comment .radd-count strong {
+  color: inherit;
+}
+
+.comment .radd-count a img {
+  vertical-align: middle;
+  opacity: 0.3;
+}
+
+.comment .radd-count a:hover img,
+.comment .radd-count a.voted img {
+  opacity: 1;
 }
 
 .comment p, .comment footer, .comment form {

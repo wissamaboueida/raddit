@@ -2,8 +2,42 @@ class CommentsController < ApplicationController
   before_filter :login_required
   before_filter :get_story
 
-  # GET /posts/1/comments/new
-  # GET /posts/1/comments/new.xml
+  # POST /stories/1/comments/1/radd
+  # POST /stories/1/comments/1/radd.xml
+  def radd
+    @comment = Comment.find(params[:id])
+    
+    respond_to do |format|
+      if @comment.vote(true, current_user)
+        flash[:notice] = 'You have upvoted this comment!'
+        format.html { redirect_to(@story) }
+        format.xml  { render :xml => @story, :status => :created, :location => @story }
+      else
+        format.html { render :action => "index" }
+        format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /stories/1/comments/1/bury
+  # POST /stories/1/comments/1/bury.xml
+  def bury
+    @comment = Comment.find(params[:id])
+    
+    respond_to do |format|
+      if @comment.vote(false, current_user)
+        flash[:notice] = 'You have downvoted this comment.'
+        format.html { redirect_to(@story) }
+        format.xml  { render :xml => @story, :status => :created, :location => @story }
+      else
+        format.html { render :action => "index" }
+        format.xml  { render :xml => @story.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # GET /stories/1/comments/new
+  # GET /stories/1/comments/new.xml
   def new
     @comment = @story.comments.new
 
@@ -13,13 +47,13 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /posts/1/comments/1/edit
+  # GET /stories/1/comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
   end
 
-  # POST /posts/1/comments
-  # POST /posts/1/comments.xml
+  # POST /stories/1/comments
+  # POST /stories/1/comments.xml
   def create
     @comments = @story.comments
     @comment = @story.comments.new(params[:comment])
@@ -37,8 +71,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /posts/1/comments/1
-  # PUT /posts/1/comments/1.xml
+  # PUT /stories/1/comments/1
+  # PUT /stories/1/comments/1.xml
   def update
     @comment = Comment.find(params[:id])
 
@@ -54,8 +88,8 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1/comments/1
-  # DELETE /posts/1/comments/1.xml
+  # DELETE /stories/1/comments/1
+  # DELETE /stories/1/comments/1.xml
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy

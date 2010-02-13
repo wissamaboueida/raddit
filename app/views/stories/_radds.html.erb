@@ -1,4 +1,4 @@
-<%= link_to "<strong>#{story.sum_of_votes}</strong> radds", story, :class => "count" %>
+<%= link_to "<strong>#{story.sum_of_votes}</strong> #{pluralize_word(story.sum_of_votes.abs, "radd")}", story, :class => "count" %>
 <% if logged_in? -%>
   <% if current_user.voted_for?(story) %>
     <span class="status">radd</span>

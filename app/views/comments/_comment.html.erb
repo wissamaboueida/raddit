@@ -7,6 +7,17 @@
     </time>
   </div>
   
+  <div class="radd-count">
+    <strong><%= "#{"+" if comment.sum_of_votes > 0}#{comment.sum_of_votes}" %></strong>
+    <%= pluralize_word(comment.sum_of_votes.abs, "radd") %>
+    <% if logged_in? -%>
+      <%= link_to image_tag("thumb-up.png"),   radd_story_comment_path(comment.story, comment), :method => :post,
+                  :class => (current_user.voted_for?(comment) ? "voted" : nil) %>
+      <%= link_to image_tag("thumb-down.png"), bury_story_comment_path(comment.story, comment), :method => :post,
+                  :class => (current_user.voted_against?(comment) ? "voted" : nil) %>
+    <% end -%>
+  </div>
+  
   <p><%=h comment.content %></p>
   
   <footer>
@@ -14,6 +25,9 @@
       <%= link_to pluralize(comment.replies.length, "Reply"),
                   edit_story_comment_path(comment.story, comment),
                   :class => 'replies' %>
+      <% if comment.replies.highest_sum_of_votes > 0 -%>
+        <em>&mdash; best has <%= pluralize(comment.replies.highest_sum_of_votes, "radd") %></em>
+      <% end -%>
     <% else -%>
       &nbsp;
     <% end -%>
