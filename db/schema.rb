@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100211234716) do
+ActiveRecord::Schema.define(:version => 20100212003003) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -18,14 +18,6 @@ ActiveRecord::Schema.define(:version => 20100211234716) do
     t.integer  "reply_to_id", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "radds", :force => true do |t|
-    t.integer  "user_id",                      :null => false
-    t.integer  "story_id",                     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "vote",       :default => true
   end
 
   create_table "stories", :force => true do |t|
@@ -56,5 +48,17 @@ ActiveRecord::Schema.define(:version => 20100211234716) do
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.string   "voteable_type", :default => ""
+    t.integer  "voteable_id",   :default => 0
+    t.integer  "user_id",       :default => 0
+    t.boolean  "voting"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["voteable_type", "voteable_id", "user_id"], :name => "index_votes_on_voteable_type_and_voteable_id_and_user_id"
+  add_index "votes", ["voteable_type", "voteable_id", "voting"], :name => "index_votes_on_voteable_type_and_voteable_id_and_voting"
 
 end

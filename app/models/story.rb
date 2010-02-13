@@ -1,22 +1,11 @@
 class Story < ActiveRecord::Base
   MEDIA_TYPES = %w( news video image )
   
+  acts_as_voteable
+  
   belongs_to :user
   has_many :comments, :conditions => ["reply_to_id = ?", 0],
                       :dependent => :destroy
-  has_many :radds,    :dependent => :destroy do
-    def for
-      find_all_by_vote(true)
-    end
-    
-    def against
-      find_all_by_vote(false)
-    end
-    
-    def net_count
-      self.for.count - self.against.count
-    end
-  end
   
   validates_presence_of   :title
   
@@ -29,5 +18,9 @@ class Story < ActiveRecord::Base
   validates_inclusion_of  :media, :in => MEDIA_TYPES
   
   validates_presence_of   :user_id
+  
+  def sum_of_votes
+    number_of_votes_for - number_of_votes_against
+  end
   
 end

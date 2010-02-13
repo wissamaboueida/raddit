@@ -1,8 +1,8 @@
-<%= link_to "<strong>#{story.radds.net_count}</strong> radds", story, :class => "count" %>
+<%= link_to "<strong>#{story.sum_of_votes}</strong> radds", story, :class => "count" %>
 <% if logged_in? -%>
-  <% if current_user.has_radd?(story) %>
+  <% if current_user.voted_for?(story) %>
     <span class="status">radd</span>
-  <% elsif current_user.has_buried?(story) %>
+  <% elsif current_user.voted_against?(story) %>
     <span class="status">buried</span>
   <% else -%>
     <%= link_to "raddit", radd_story_path(story), :method => :post, :class => "status" %>

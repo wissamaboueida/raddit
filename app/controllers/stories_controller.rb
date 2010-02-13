@@ -55,12 +55,8 @@ class StoriesController < ApplicationController
   def radd
     @story = Story.find(params[:id])
     
-    @radd = Radd.new
-    @radd.story = @story
-    @radd.user = current_user
-
     respond_to do |format|
-      if @radd.save
+      if @story.vote(true, current_user)
         flash[:notice] = 'You have made this story a little more radd!'
         format.html { redirect_to(@story) }
         format.xml  { render :xml => @story, :status => :created, :location => @story }
@@ -76,12 +72,8 @@ class StoriesController < ApplicationController
   def bury
     @story = Story.find(params[:id])
     
-    @radd = Radd.new({ :vote => false })
-    @radd.story = @story
-    @radd.user = current_user
-
     respond_to do |format|
-      if @radd.save
+      if @story.vote(false, current_user)
         flash[:notice] = 'You have buried this story.'
         format.html { redirect_to(@story) }
         format.xml  { render :xml => @story, :status => :created, :location => @story }
