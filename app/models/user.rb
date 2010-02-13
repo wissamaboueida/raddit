@@ -51,15 +51,11 @@ class User < ActiveRecord::Base
   end
   
   def voted_for?(voteable)
-    votes = voteable.class.find_votes_by_user(self)
-    vote = votes.find {|v| v.voteable_id == voteable.id }
-    vote && vote.voting
+    voteable.votes_for.any? {|v| id == v.user_id }
   end
   
   def voted_against?(voteable)
-    votes = voteable.class.find_votes_by_user(self)
-    vote = votes.find {|v| v.voteable_id == voteable.id }
-    vote && !vote.voting
+    voteable.votes_against.any? {|v| id == v.user_id }
   end
   
 end
